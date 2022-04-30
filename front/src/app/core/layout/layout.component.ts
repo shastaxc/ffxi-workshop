@@ -10,8 +10,9 @@ import { RouterOutlet } from '@angular/router';
 import { of } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
 
-import { slideInAnimation } from '@/shared/constants/animations.const';
 import { SidenavService } from './sidenav.service';
+
+import { slideInAnimation } from '@/shared/constants/animations.const';
 
 @Component({
   selector: 'app-layout',
@@ -21,11 +22,11 @@ import { SidenavService } from './sidenav.service';
 })
 export class LayoutComponent implements AfterViewInit {
   @ViewChild('navbar')
-  navbar!: ElementRef;
+    navbar!: ElementRef;
   @ViewChild('sidenav')
-  sidenav!: MatSidenav;
+    sidenav!: MatSidenav;
   @ViewChild('sidenavContainer', { read: ElementRef })
-  sidenavContainer!: ElementRef;
+    sidenavContainer!: ElementRef;
 
   headerHeight!: number;
 
@@ -37,14 +38,14 @@ export class LayoutComponent implements AfterViewInit {
     return this.sidenavContainer.nativeElement;
   }
 
-  constructor(private sidenavService: SidenavService) {}
+  constructor(private readonly sidenavService: SidenavService) {}
 
   ngAfterViewInit(): void {
     // Get header height
     of('')
       .pipe(
         delay(0), // Avoiding ExpressionChangedAfterItHasBeenCheckedError
-        map(() => this.navbarEl.offsetHeight)
+        map(() => this.navbarEl.offsetHeight),
       )
       .subscribe((height: any) => {
         this.headerHeight = height;

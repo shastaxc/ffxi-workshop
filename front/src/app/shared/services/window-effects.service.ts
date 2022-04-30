@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class WindowEffectsService {
-  constructor(private mediaObserver: MediaObserver) {}
+  constructor(private readonly mediaObserver: MediaObserver) {}
 
   resizeWindow$(): Observable<any> {
     return this.mediaObserver.asObservable();

@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
 export class SidenavService {
-  private _isSidenavOpen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private readonly _isSidenavOpen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   get isSidenavOpen$(): Observable<boolean> {
     return this._isSidenavOpen.asObservable();
@@ -18,7 +18,7 @@ export class SidenavService {
     this._isSidenavOpen.next(state);
   }
 
-  constructor(@Inject(DOCUMENT) private doc: Document) {}
+  constructor(@Inject(DOCUMENT) private readonly doc: Document) {}
 
   toggleSidenav(): void {
     this.isSidenavOpen ? this.closeSidenav() : this.openSidenav();

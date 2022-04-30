@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { WindowEffectsService } from './shared/services/window-effects.service';
 
 @Component({
@@ -9,5 +10,5 @@ import { WindowEffectsService } from './shared/services/window-effects.service';
 export class AppComponent {
   title = 'ffxi-workshop';
 
-  constructor(private windowEffectsService: WindowEffectsService) {}
+  constructor(private readonly windowEffectsService: WindowEffectsService) {}
 }

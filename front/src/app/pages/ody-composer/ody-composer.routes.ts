@@ -1,4 +1,5 @@
 import { Route } from '@angular/router';
+
 import { OdyComposerComponent } from './ody-composer.component';
 
 export const odyComposerRoutes: Route[] = [
@@ -7,5 +8,5 @@ export const odyComposerRoutes: Route[] = [
     component: OdyComposerComponent,
     data: {},
     canActivate: [],
-  }
-]
+  },
+];

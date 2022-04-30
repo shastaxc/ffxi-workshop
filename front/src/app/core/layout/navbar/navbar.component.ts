@@ -8,7 +8,7 @@ import { SidenavService } from '../sidenav.service';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent {
-  constructor(private sidenavService: SidenavService) {}
+  constructor(private readonly sidenavService: SidenavService) {}
 
   toggleSidenav(): void {
     this.sidenavService.toggleSidenav();

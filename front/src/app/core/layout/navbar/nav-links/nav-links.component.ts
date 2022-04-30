@@ -9,9 +9,9 @@ import { SidenavService } from '../../sidenav.service';
 })
 export class NavLinksComponent {
   @Input()
-  isHorizontal!: boolean;
+    isHorizontal!: boolean;
 
-  constructor(private sidenavService: SidenavService) {}
+  constructor(private readonly sidenavService: SidenavService) {}
 
   closeSidenav(): void {
     this.sidenavService.closeSidenav();

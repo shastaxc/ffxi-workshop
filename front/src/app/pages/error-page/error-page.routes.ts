@@ -1,4 +1,5 @@
 import { Route } from '@angular/router';
+
 import { ErrorPageComponent } from './error-page.component';
 
 export const errorPageRoutes: Route[] = [
@@ -7,5 +8,5 @@ export const errorPageRoutes: Route[] = [
     component: ErrorPageComponent,
     data: {},
     canActivate: [],
-  }
-]
+  },
+];

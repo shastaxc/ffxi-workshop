@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class WindowScrollingService {
-  constructor(@Inject(DOCUMENT) private doc: Document) {}
+  constructor(@Inject(DOCUMENT) private readonly doc: Document) {}
 
   /**
    * Disable the scrolling of the main viewport.
