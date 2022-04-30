@@ -1,0 +1,5 @@
+{
+  "beautify.ignore": ["*.js", "*.css", "*.scss", "*.json", "*.sass"],
+  "wrap_attributes": "force-aligned",
+  "end_with_newline": true
+}

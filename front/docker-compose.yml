@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  ody-comp-front:
+    container_name: ody-comp-front
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    volumes:
+      - .:/app
+    ports:
+      - 4200:4200
+    tty: true
+    stdin_open: false

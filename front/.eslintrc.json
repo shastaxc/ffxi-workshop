@@ -1,0 +1,205 @@
+{
+  "root": true,
+  "ignorePatterns": [
+    "node/**/*",
+    "dist/**/*",
+    "projects/**/*",
+    "**/e2e/**/*",
+    "**/node_modules/**/*",
+    "**/*.spec.ts",
+    "**/test.ts",
+    "**/polyfills.ts",
+    "src/lib**/*"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "*.ts"
+      ],
+      "parserOptions": {
+        "project": [
+          "tsconfig.json"
+        ],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/ng-cli-compat",
+        "plugin:@angular-eslint/ng-cli-compat--formatting-add-on",
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "prettier"
+      ],
+      "plugins": ["simple-import-sort"],
+      "rules": {
+        "indent": ["warn", 4, { "SwitchCase": 1 }],
+        "arrow-body-style": "off", // Conflicts with prettier, keep off
+        "prefer-arrow-callback": "off", // Conflicts with prettier, keep off
+        "arrow-parens": ["warn", "as-needed"],
+        "brace-style": ["warn", "1tbs"],
+        "comma-dangle": ["warn", "always-multiline"],
+        "default-case": "error",
+        "id-blacklist": "off",
+        "id-match": "off",
+        "max-len": ["error", 190],
+        "no-bitwise": "off",
+        "no-consoel": "off",
+        "no-duplicate-imports": "error",
+        "no-extra-bind": "warn",
+        "no-labels": "error",
+        "no-lone-blocks": "error",
+        "no-multiple-empty-lines": ["warn", {"max": 1}],
+        "no-new": "error",
+        "no-new-func": "error",
+        "no-octal-escape": "error",
+        "no-return-assign": "error",
+        "no-self-compare": "warn",
+        "no-tabs": "error",
+        "no-unneeded-ternary": "warn",
+        "no-useless-call": "warn",
+        "no-restricted-syntax": "off",
+        "no-return-await": "error",
+        "no-sequences": "error",
+        "no-underscore-dangle": "off",
+        "no-void": "error",
+        "padding-line-between-statements": [
+          "warn",
+          {
+            "blankLine": "always",
+            "prev": "*",
+            "next": "return"
+          }
+        ],
+        "sort-imports": "off", // Let simple-import-sort handle sorting
+        "space-in-parens": ["warn", "never"],
+        "yoda": ["warn", "never", { "exceptRange": true }],
+        "@angular-eslint/component-max-inline-declarations": "off",
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": [
+              "ngx",
+              "test",
+              "app"
+            ],
+            "style": "kebab-case"
+          }
+        ],
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": [
+              "ngx",
+              "test"
+            ],
+            "style": "camelCase"
+          }
+        ],
+        "@angular-eslint/no-attribute-decorator": "error",
+        "@angular-eslint/no-forward-ref": "error",
+        "@angular-eslint/no-lifecycle-call": "error",
+        "@angular-eslint/no-pipe-impure": "error",
+        "@angular-eslint/no-queries-metadata-property": "error",
+        "@angular-eslint/prefer-output-readonly": "error",
+        "@angular-eslint/use-component-view-encapsulation": "error",
+        "@typescript-eslint/ban-ts-comment": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/consistent-type-definitions": "error",
+        "@typescript-eslint/dot-notation": "off",
+        "@typescript-eslint/explicit-function-return-type": "error",
+        "@typescript-eslint/member-ordering": "off",
+        "@typescript-eslint/naming-convention": [
+          "error",
+          {
+            "selector": "variable",
+            "format": null,
+            "leadingUnderscore": "allow"
+          }
+        ],
+        "@typescript-eslint/no-empty-interface": "off",
+        "@typescript-eslint/no-floating-promises": "off",
+        "@typescript-eslint/no-require-imports": "error",
+        "@typescript-eslint/no-unnecessary-type-arguments": "error",
+        "@typescript-eslint/no-unnecessary-type-assertion": "off",
+        "@typescript-eslint/prefer-readonly": "error",
+        "@typescript-eslint/promise-function-async": "error",
+        "@typescript-eslint/require-await": "error",
+        "@typescript-eslint/restrict-plus-operands": "off",
+        "import/default": "error",
+        "import/export": "error",
+        "import/first": "error",
+        "import/namespace": "off",
+        "import/newline-after-import": "error",
+        "import/no-cycle": "off",
+        "import/no-default-export": "error",
+        "import/no-deprecated": "off",
+        "import/no-duplicates": "error",
+        "import/no-self-import": "error",
+        "import/no-useless-path-segments": "error",
+        "import/no-unassigned-import": "error",
+        "import/order": "off", // Let simple-import-sort handle sorting
+        "simple-import-sort/imports": ["warn", {
+          "groups": [
+            // Side effect imports.
+            ["^\\u0000"],
+            // Packages. '@angular' related packages come first.
+            ["^@angular/.*", "^@?\\w"],
+            // Internal packages.
+            ["^(src)(/.*|$)",
+            // Parent imports. Put `..` last.
+            "^\\.\\.(?!/?$)", "^\\.\\./?$",
+            // Other relative imports. Put same-folder imports and `.` last.
+            "^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+            // Style imports.
+            ["^.|\\.s?css$"]
+          ]
+        }],
+        // Below: Force errors into warnings if they can auto-fix
+        "curly": "warn",
+        "eol-last": "warn",
+        "eqeqeq": ["warn", "smart"],
+        "new-parens": "warn",
+        "no-extra-boolean-cast": "warn",
+        "no-extra-semi": "warn",
+        "no-regex-spaces": "warn",
+        "no-trailing-spaces": "warn",
+        "no-undef-init": "warn",
+        "no-var": "warn",
+        "object-shorthand": "warn",
+        "one-var": ["warn", "never"],
+        "prefer-const": "warn",
+        "quote-props": ["warn", "as-needed"],
+        "space-before-function-paren": [
+          "warn",
+          {
+            "anonymous": "never",
+            "asyncArrow": "always",
+            "named": "never"
+          }
+        ],
+        "@typescript-eslint/no-inferrable-types": ["warn", {"ignoreParameters": true}],
+        "@typescript-eslint/prefer-as-const": "warn",
+        "@typescript-eslint/prefer-function-type": "warn",
+        "@typescript-eslint/prefer-namespace-keyword": "warn",
+        "@typescript-eslint/type-annotation-spacing": "warn",
+        "semi": "off",
+        "@typescript-eslint/semi": "warn"
+      }
+    },
+    {
+      "files": [
+        "*.html"
+      ],
+      "extends": [
+        "plugin:@angular-eslint/template/recommended"
+      ],
+      "rules": {
+        "@angular-eslint/template/conditional-complexity": "off",
+        "@angular-eslint/template/cyclomatic-complexity": "off",
+        "@angular-eslint/template/no-call-expression": "off",
+        "@angular-eslint/template/use-track-by-function": "off"
+      }
+    }
+  ]
+}
