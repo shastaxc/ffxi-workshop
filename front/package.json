@@ -11,7 +11,8 @@
     "pretty": "echo \"Formatting HTML...\" && npm run beautify-html && echo \"Formatting & Linting TS...\" && npm run eslint:fix",
     "beautify-html": "js-beautify -q -r -n --type html -A force-aligned **/*.html",
     "eslint:errors": "eslint --ext .ts,.html .",
-    "eslint:fix": "eslint --ext .ts,.html --max-warnings=0 --fix ."
+    "eslint:fix": "eslint --ext .ts,.html --max-warnings=0 --fix .",
+    "prepare": "cd .. && husky install front/.husky"
   },
   "private": true,
   "dependencies": {
@@ -52,6 +53,7 @@
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
+    "husky": "^7.0.4",
     "jest": "^27.5.1",
     "jest-preset-angular": "^11.1.2",
     "js-beautify": "^1.14.3",
