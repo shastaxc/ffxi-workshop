@@ -1,4 +1,4 @@
-# ody-comp
+# FFXI Tools
 Webapp that tracks Odyssey party compositions in FFXI
 
 # Stack
