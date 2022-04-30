@@ -69,8 +69,8 @@ $success-colors: (
 // Select colors
 $primary-palette: mat.define-palette(mat.$pink-palette, 500);
 $accent-palette: mat.define-palette(mat.$purple-palette, 300);
-$warn-palette: mat.define-palette($warn-colors, 500);
-$success-palette: mat.define-palette($success-colors, 500);
+$warn-palette: mat.define-palette($warn-colors);
+$success-palette: mat.define-palette($success-colors);
 
 $kitsune-dark-theme: mat.define-dark-theme((
   color: (
