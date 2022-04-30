@@ -4,7 +4,7 @@ import { OdyComposerComponent } from './ody-composer.component';
 
 export const odyComposerRoutes: Route[] = [
   {
-    path: '/ody-composer',
+    path: 'ody-composer',
     component: OdyComposerComponent,
     data: {},
     canActivate: [],
