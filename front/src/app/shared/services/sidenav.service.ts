@@ -21,7 +21,11 @@ export class SidenavService {
   constructor(@Inject(DOCUMENT) private readonly doc: Document) {}
 
   toggleSidenav(): void {
-    this.isSidenavOpen ? this.closeSidenav() : this.openSidenav();
+    if (this.isSidenavOpen) {
+      this.closeSidenav();
+    } else {
+      this.openSidenav();
+    }
   }
 
   closeSidenav(): void {

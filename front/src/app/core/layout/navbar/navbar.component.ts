@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { SidenavService } from '../sidenav.service';
+import { SidenavService } from '@/shared/services/sidenav.service';
 
 @Component({
   selector: 'app-navbar',

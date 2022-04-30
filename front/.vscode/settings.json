@@ -1,0 +1,16 @@
+{
+  "[html]": {
+    "editor.defaultFormatter": "HookyQR.beautify",
+    "editor.formatOnSave": true,
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.codeActionsOnSave": {
+      "source.fixAll": true
+    }
+  },
+  "eslint.alwaysShowStatus": true,
+  "eslint.validate": [
+    "typescript"
+  ]
+}

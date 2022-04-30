@@ -10,9 +10,8 @@ import { RouterOutlet } from '@angular/router';
 import { of } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
 
-import { SidenavService } from './sidenav.service';
-
 import { slideInAnimation } from '@/shared/constants/animations.const';
+import { SidenavService } from '@/shared/services/sidenav.service';
 
 @Component({
   selector: 'app-layout',
@@ -54,7 +53,11 @@ export class LayoutComponent implements AfterViewInit {
 
     // Open or close sidenav based on state in the sidenav service
     this.sidenavService.isSidenavOpen$.subscribe((state: boolean) => {
-      state ? this.sidenav.open() : this.sidenav.close();
+      if (state) {
+        this.sidenav.open();
+      } else {
+        this.sidenav.close();
+      }
     });
   }
 
