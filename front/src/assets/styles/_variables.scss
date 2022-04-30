@@ -1,0 +1,137 @@
+@use '@angular/material' as mat;
+@use 'sass:map';
+
+$warn-colors: (
+  50: #feebea,
+  100: #fccecb,
+  200: #fbaea8,
+  300: #f98d85,
+  400: #f7746b,
+  500: #f65c51,
+  600: #f5544a,
+  700: #f34a40,
+  800: #f24137,
+  900: #ef3027,
+  A100: #ffffff,
+  A200: #fff8f8,
+  A400: #ffc7c5,
+  A700: #ffafac,
+  contrast: (
+    50: rgba(0, 0, 0, 0.87),
+    100: rgba(0, 0, 0, 0.87),
+    200: rgba(0, 0, 0, 0.87),
+    300: rgba(0, 0, 0, 0.87),
+    400: rgba(0, 0, 0, 0.87),
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: rgba(0, 0, 0, 0.87),
+    A200: rgba(0, 0, 0, 0.87),
+    A400: rgba(0, 0, 0, 0.87),
+    A700: rgba(0, 0, 0, 0.87),
+  )
+);
+$success-colors: (
+  50: #e3f9ee,
+  100: #b8f0d5,
+  200: #89e7b9,
+  300: #59dd9d,
+  400: #36d588,
+  500: #12ce73,
+  600: #10c96b,
+  700: #0dc260,
+  800: #0abc56,
+  900: #05b043,
+  A100: #dbffe6,
+  A200: #a8ffc2,
+  A400: #75ff9e,
+  A700: #5bff8d,
+  contrast: (
+    50: rgba(0, 0, 0, 0.87),
+    100: rgba(0, 0, 0, 0.87),
+    200: rgba(0, 0, 0, 0.87),
+    300: rgba(0, 0, 0, 0.87),
+    400: rgba(0, 0, 0, 0.87),
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: rgba(0, 0, 0, 0.87),
+    A200: rgba(0, 0, 0, 0.87),
+    A400: rgba(0, 0, 0, 0.87),
+    A700: rgba(0, 0, 0, 0.87),
+  )
+);
+
+// Select colors
+$primary-palette: mat.define-palette(mat.$pink-palette, 500);
+$accent-palette: mat.define-palette(mat.$purple-palette, 300);
+$warn-palette: mat.define-palette($warn-colors, 500);
+$success-palette: mat.define-palette($success-colors, 500);
+
+$kitsune-dark-theme: mat.define-dark-theme((
+  color: (
+    primary: $primary-palette,
+    accent: $accent-palette,
+    warn: $warn-palette,
+  )
+));
+$kitsune-light-theme: mat.define-light-theme((
+  color: (
+    primary: $primary-palette,
+    accent: $accent-palette,
+    warn: $warn-palette,
+  )
+));
+
+// Override palette defaults
+$background: map.get($kitsune-dark-theme, background);
+$background: map.merge(
+  $background,
+  (
+    background: map.get($accent-palette, 900)
+  )
+);
+$background: map.merge(
+  $background,
+  (
+    card: map.get($accent-palette, 800)
+  )
+);
+$kitsune-dark-theme: map.merge(
+  $kitsune-dark-theme,
+  (
+    background: $background
+  )
+);
+
+$background: map.get($kitsune-light-theme, background);
+$background: map.merge(
+  $background,
+  (
+    background: map.get($primary-palette, 100)
+  )
+);
+$background: map.merge(
+  $background,
+  (
+    card: map.get($primary-palette, 50)
+  )
+);
+$kitsune-light-theme: map.merge(
+  $kitsune-light-theme,
+  (
+    background: $background
+  )
+);
+
+$foreground-palette: map.get($kitsune-dark-theme, foreground);
+$background-palette: map.get($kitsune-dark-theme, background);
+
+$mat-success: mat.get-color-from-palette($success-palette, 500);
+$mat-info: rgba(91, 192, 222, 1);
+$mat-yellow: map.get(mat.$yellow-palette, 500);
+$mat-label-color: mat.get-color-from-palette($foreground-palette, secondary-text);
