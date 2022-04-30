@@ -2,7 +2,9 @@
 Webapp that tracks Odyssey party compositions in FFXI
 
 # Stack
-Mongodb ExpressJs Angular Nodejs
+Angular
+SpringBoot
+MongoDB
 
 # Source
 Github
