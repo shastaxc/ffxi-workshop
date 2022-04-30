@@ -4,4 +4,4 @@ pluginManagement {
 		gradlePluginPortal()
 	}
 }
-rootProject.name = 'ody-comp'
+rootProject.name = 'ffxiworkshop'

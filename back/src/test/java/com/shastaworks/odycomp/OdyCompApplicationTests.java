@@ -1,10 +1,10 @@
-package com.shastaworks.odycomp;
+package com.shastaworks.ffxiworkshop;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class OdyCompApplicationTests {
+class FfxiWorkshopApplicationTests {
 
 	@Test
 	void contextLoads() {

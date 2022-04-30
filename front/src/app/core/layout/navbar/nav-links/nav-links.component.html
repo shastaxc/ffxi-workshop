@@ -1,0 +1,21 @@
+<ng-container *ngIf="isHorizontal; else isSidenav">
+  <div class="nav-links-group flex-row">
+    <a mat-button
+       class="nav-link-btn hide-xs"
+       routerLink="/ody-comp">
+      <mat-icon>web</mat-icon>
+      <span class="mat-h1 nav-link-text">Ody Composer</span>
+    </a>
+  </div>
+</ng-container>
+<ng-template #isSidenav>
+  <mat-nav-list>
+    <a mat-list-item
+       class="nav-link-btn"
+       routerLink="/ody-comp"
+       (click)="closeSidenav()">
+      <mat-icon>web</mat-icon>
+      <span class="mat-h1 nav-link-text">Ody Composer</span>
+    </a>
+  </mat-nav-list>
+</ng-template>

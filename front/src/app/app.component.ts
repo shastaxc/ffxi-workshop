@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { WindowEffectsService } from './shared/services/window-effects.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'ody-comp';
+  title = 'ffxi-workshop';
+
+  constructor(private windowEffectsService: WindowEffectsService) {}
 }

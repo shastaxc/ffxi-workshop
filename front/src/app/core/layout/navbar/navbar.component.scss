@@ -1,0 +1,18 @@
+@use 'variables';
+
+.nav-header {
+  height: 100%;
+  padding: 5px 0;
+  display: flex;
+  align-items: center;
+
+  .font-fugaz-one {
+    @include variables.typography-display-2;
+    font-family: 'Fugaz One';
+  }
+
+  .font-consolas {
+    @include variables.typography-display-2;
+    font-family: 'Consolas', monospace;
+  }
+}

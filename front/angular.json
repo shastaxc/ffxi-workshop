@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ody-comp": {
+    "ffxi-workshop": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -33,6 +33,13 @@
         },
         "@schematics/angular:application": {
           "strict": true
+        },
+        "schematics": {
+          "@ngneat/spectator:spectator-component": {
+            "style": "scss",
+            "jest": true,
+            "skipImport": true
+          }
         }
       },
       "root": "",
@@ -42,7 +49,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ody-comp",
+            "outputPath": "dist/ffxi-workshop",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -55,6 +62,11 @@
             "styles": [
               "src/assets/styles/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/assets/styles"
+              ]
+            },
             "scripts": []
           },
           "configurations": {
@@ -94,10 +106,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "ody-comp:build:production"
+              "browserTarget": "ffxi-workshop:build:production"
             },
             "development": {
-              "browserTarget": "ody-comp:build:development"
+              "browserTarget": "ffxi-workshop:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -105,7 +117,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ody-comp:build"
+            "browserTarget": "ffxi-workshop:build"
           }
         },
         "test": {
@@ -123,11 +135,19 @@
             "styles": [
               "src/assets/styles/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/assets/styles"
+              ]
+            },
             "scripts": []
           }
         }
       }
     }
   },
-  "defaultProject": "ody-comp"
+  "defaultProject": "ffxi-workshop",
+  "cli": {
+    "defaultCollection": "@ngneat/spectator"
+  }
 }

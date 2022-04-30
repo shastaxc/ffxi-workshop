@@ -1,5 +1,31 @@
-@use './theme';
-@use './variables';
+@use 'theme';
+@use 'variables';
+@use 'breakpoints';
+@use 'sass:map';
+
+// Material Icons
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+// Material Typography
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap");
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+a {
+  font-weight: bold;
+  text-decoration: none;
+  color: map.get(variables.$primary-palette, lighter);
+}

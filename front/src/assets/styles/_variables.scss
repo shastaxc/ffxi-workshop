@@ -135,3 +135,32 @@ $mat-success: mat.get-color-from-palette($success-palette, 500);
 $mat-info: rgba(91, 192, 222, 1);
 $mat-yellow: map.get(mat.$yellow-palette, 500);
 $mat-label-color: mat.get-color-from-palette($foreground-palette, secondary-text);
+
+// End theming
+
+@mixin typography-display-4() {
+  font: 300 112px/112px Roboto, "Helvetica Neue", sans-serif;
+  letter-spacing: -0.05em;
+}
+@mixin typography-display-3() {
+  font: 400 56px/56px Roboto, "Helvetica Neue", sans-serif;
+  letter-spacing: -0.02em;
+}
+@mixin typography-display-2() {
+  font: 400 45px/48px Roboto, "Helvetica Neue", sans-serif;
+  letter-spacing: -0.005em;
+}
+@mixin typography-display-1() { font: 400 34px/40px Roboto, "Helvetica Neue", sans-serif; }
+@mixin typography-headline() { font: 400 24px/32px Roboto, "Helvetica Neue", sans-serif; }
+@mixin typography-h1() { font: 400 24px/32px Roboto, "Helvetica Neue", sans-serif; }
+@mixin typography-title() { font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif; }
+@mixin typography-h2() { font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif; }
+@mixin typography-subheading-2() { font: 400 16px/28px Roboto, "Helvetica Neue", sans-serif; }
+@mixin typography-h3() { font: 400 16px/28px Roboto, "Helvetica Neue", sans-serif; }
+@mixin typography-subheading-1() { font: 400 15px/24px Roboto, "Helvetica Neue", sans-serif; }
+@mixin typography-h4() { font: 400 15px/24px Roboto, "Helvetica Neue", sans-serif; }
+@mixin typography-body-1() { font: 400 14px/20px Roboto, "Helvetica Neue", sans-serif; }
+@mixin typography-body-2() { font: 500 14px/24px Roboto, "Helvetica Neue", sans-serif; }
+@mixin typography-caption() { font: 400 12px/20px Roboto, "Helvetica Neue", sans-serif; }
+@mixin typography-button() { font: 500 14px/14px Roboto, "Helvetica Neue", sans-serif; }
+@mixin typography-input() { font: 400 inherit/1.125 Roboto, "Helvetica Neue", sans-serif; }

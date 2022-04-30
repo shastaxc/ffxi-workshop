@@ -1,0 +1,31 @@
+:host {
+  height: 100%;
+}
+
+.nav-links-group {
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+}
+
+.nav-link-btn {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 5px 10px;
+  border-radius: 0px;
+  
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+
+  -webkit-user-drag: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nav-link-text {
+  margin-bottom: 0 !important;
+}

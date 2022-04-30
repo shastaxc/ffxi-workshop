@@ -1,8 +1,8 @@
 version: '3.7'
 
 services:
-  ody-comp-front:
-    container_name: ody-comp-front
+  ffxi-workshop-front:
+    container_name: ffxi-workshop-front
     build:
       context: .
       dockerfile: Dockerfile

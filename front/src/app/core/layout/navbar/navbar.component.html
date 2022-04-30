@@ -1,0 +1,18 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button
+          class="hide-gt-xs"
+          (click)="toggleSidenav()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <a mat-button
+     class="nav-header"
+     routerLink="/"
+     (click)="closeSidenav()">
+    <span class="font-consolas">{{ '[' }}</span>
+    <span class="font-fugaz-one">FFXI Workshop</span>
+    <span class="font-consolas">{{ ']' }}</span>
+  </a>
+  <div class="flex-grow-1">
+  </div>
+  <app-nav-links [isHorizontal]="true"></app-nav-links>
+</mat-toolbar>

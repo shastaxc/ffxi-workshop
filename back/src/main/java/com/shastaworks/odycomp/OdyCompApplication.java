@@ -1,13 +1,13 @@
-package com.shastaworks.odycomp;
+package com.shastaworks.ffxiworkshop;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class OdyCompApplication {
+public class FfxiWorkshopApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(OdyCompApplication.class, args);
+		SpringApplication.run(FfxiWorkshopApplication.class, args);
 	}
 
 }

@@ -3,7 +3,6 @@
   "ignorePatterns": [
     "node/**/*",
     "dist/**/*",
-    "projects/**/*",
     "**/e2e/**/*",
     "**/node_modules/**/*",
     "**/*.spec.ts",
