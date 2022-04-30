@@ -1,1 +1,29 @@
-<p>ody-composer works!</p>
+<h1 class="text-center">Odyssey Composer</h1>
+<p class="text-center">Create group compositions for Odyssey NM runs.</p>
+
+<mat-card class="table-container d-flex">
+  <!--
+    4 col layout
+    First row = empty first cell, boss names x3 (acts as headers)
+    Subsequent rows = player name, job assignment x3
+  -->
+  <!-- Col 1, player names -->
+  <div class="flex-grow-1">
+    <!-- Empty first cell -->
+    <div>&nbsp;</div>
+    <!-- Subsequent cells pull player names -->
+    <div class="text-end"
+         *ngFor="let player of fightPlan.players">{{ player.name }}</div>
+  </div>
+
+  <!-- Col 2 -->
+  <div class="px-2"
+       *ngFor="let boss of fightPlan.bosses | orderBy: 'order'; let i=index">
+    <!-- Boss name first col -->
+    <div>{{ bossAt(i+1) }}</div>
+    <!-- Subsequent cells pull player job assignments for boss -->
+    <div *ngFor="let player of fightPlan.players">{{ jobAssignmentFor(player.name, bossAt(i+1)) }}</div>
+  </div>
+
+  <div class="flex-grow-1"></div>
+</mat-card>
