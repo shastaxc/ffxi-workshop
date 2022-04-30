@@ -31,7 +31,7 @@
       ],
       "plugins": ["simple-import-sort"],
       "rules": {
-        "indent": ["warn", 4, { "SwitchCase": 1 }],
+        "indent": ["warn", 2, { "SwitchCase": 1 }],
         "arrow-body-style": "off", // Conflicts with prettier, keep off
         "prefer-arrow-callback": "off", // Conflicts with prettier, keep off
         "arrow-parens": ["warn", "as-needed"],

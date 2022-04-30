@@ -1,5 +1,6 @@
 {
   "beautify.ignore": ["*.js", "*.css", "*.scss", "*.json", "*.sass"],
   "wrap_attributes": "force-aligned",
-  "end_with_newline": true
+  "end_with_newline": true,
+  "indent_size": 2
 }

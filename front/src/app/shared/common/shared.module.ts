@@ -7,15 +7,15 @@ import { RouterModule } from '@angular/router';
 import { MaterialComponentsModule } from './mat-components.module';
 
 @NgModule({
-    declarations: [],
-    imports: [HttpClientModule],
-    exports: [
-        CommonModule,
-        MaterialComponentsModule,
-        RouterModule,
-        ReactiveFormsModule,
-    ],
-    providers: [],
-    bootstrap: [],
+  declarations: [],
+  imports: [HttpClientModule],
+  exports: [
+    CommonModule,
+    MaterialComponentsModule,
+    RouterModule,
+    ReactiveFormsModule,
+  ],
+  providers: [],
+  bootstrap: [],
 })
 export class SharedModule {}

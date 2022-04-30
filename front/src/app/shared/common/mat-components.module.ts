@@ -3,17 +3,17 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 const materialModules = [
-    MatIconModule,
-    MatToolbarModule,
+  MatIconModule,
+  MatToolbarModule,
 ];
 
 @NgModule({
-    imports: [
-        ...materialModules,
-    ],
-    exports: [
-        ...materialModules,
-    ],
+  imports: [
+    ...materialModules,
+  ],
+  exports: [
+    ...materialModules,
+  ],
 })
 
 export class MaterialComponentsModule { }
