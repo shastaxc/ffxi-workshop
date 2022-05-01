@@ -1,5 +1,7 @@
+import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
+import { clone, isNil } from 'lodash-es';
 
 import { Job } from '@/shared/constants/job.const';
 import { OdyBoss } from '@/shared/constants/ody-boss.const';
@@ -17,7 +19,7 @@ export class OdyComposerComponent implements OnInit {
   odyBossKeys= Object.keys(OdyBoss) as [keyof typeof OdyBoss];
 
   Job = Job;
-  jobKeys= Object.keys(Job) as [keyof typeof Job];
+  jobKeys = Object.keys(Job) as [keyof typeof Job];
 
   playerData: IOdyPlayer[] = [
     {name: 'Kikomizuhara', assignments: [
@@ -63,34 +65,40 @@ export class OdyComposerComponent implements OnInit {
 
   form: FormGroup = new FormGroup({});
 
-  get bossesFormGroup(): FormGroup {
-    return this.form.controls['bosses'] as FormGroup;
+  get bossesFormArray(): FormArray {
+    return this.form.controls['bosses'] as FormArray;
   }
   get playerFormArray(): FormArray {
     return this.form.controls['players'] as FormArray;
   }
 
+  jobsAvailable: Job[] = Object.values(Job);
+
+  jobAssignments: Job[][][] = [
+  // 0   1   2   3   4   5          Bossess
+    [[], [], [], [], [], []], // 0: First boss
+    [[], [], [], [], [], []], // 1: Second boss
+    [[], [], [], [], [], []], // 2: Third boss
+  ];
+
   constructor() { }
 
   ngOnInit(): void {
-    this.form.addControl('bosses', new FormGroup({
-      first: new FormControl(),
-      second: new FormControl(),
-      third: new FormControl(),
-    }));
-    this.form.addControl('players', new FormArray([]));
-
-    // Add 6 groups, one for each party member
-    for (let i=0; i<6; i++) {
-      this.playerFormArray.controls.push(new FormGroup({
-        name: new FormControl(),
-        assignments: new FormGroup({
-          first: new FormControl(),
-          second: new FormControl(),
-          third: new FormControl(),
-        }),
-      }));
-    }
+    // Add 3 controls, one for each boss
+    this.form.addControl('bosses', new FormArray([
+      new FormControl(),
+      new FormControl(),
+      new FormControl(),
+    ]));
+    // Add 6 controls, one for each party member
+    this.form.addControl('players', new FormArray([
+      new FormControl(),
+      new FormControl(),
+      new FormControl(),
+      new FormControl(),
+      new FormControl(),
+      new FormControl(),
+    ]));
   }
 
   bossAt(num: number): OdyBoss | undefined {
@@ -105,20 +113,38 @@ export class OdyComposerComponent implements OnInit {
     return undefined;
   }
 
-  getAssignmentControl(playerGroup: AbstractControl | FormGroup, num: number): FormControl {
-    const assignments = (playerGroup as FormGroup).controls['assignments'] as FormGroup;
-
-    if (num === 1) {
-      return assignments.controls['first'] as FormControl;
-    } else if (num === 2) {
-      return assignments.controls['second'] as FormControl;
-    } else {
-      return assignments.controls['third'] as FormControl;
-    }
-  }
-
   asFormGroup(input: AbstractControl | FormGroup): FormGroup {
     return input as FormGroup;
+  }
+
+  asFormControl(input: AbstractControl | FormControl): FormControl {
+    return input as FormControl;
+  }
+
+  drop(event: CdkDragDrop<(Job)[]>): void {
+    console.log('event', event);
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+    }
+    console.log('assignment: ', this.jobAssignments[0][0][0]);
+  }
+
+  getAssignment(bossNum: number, playerNum: number): Job {
+    return this.jobAssignments[bossNum][playerNum][0];
+  }
+
+  getDropListPredicate(bossNum: number, playerNum: number): (drag: CdkDrag, drop: CdkDropList) => boolean {
+    return (drag: CdkDrag, drop: CdkDropList) => {
+      // Check if slot is free or not
+      return isNil(this.getAssignment(bossNum, playerNum));
+    };
   }
 
 }

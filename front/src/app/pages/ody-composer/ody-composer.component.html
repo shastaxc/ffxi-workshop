@@ -2,7 +2,8 @@
 <p class="text-center">Create group compositions for Odyssey NM runs.</p>
 
 <mat-card class="table-container"
-          [formGroup]="form">
+          [formGroup]="form"
+          cdkDropListGroup>
   <div class="d-flex">
     <!--
       4 col layout
@@ -20,91 +21,67 @@
       </div>
       <!-- Subsequent cells pull player names -->
       <div class="text-end"
-           *ngFor="let playerGroup of playerFormArray.controls; let i = index"
-           [formGroup]="asFormGroup(playerGroup)">
+           *ngFor="let playerControl of playerFormArray.controls; let i = index">
         <mat-form-field>
           <mat-label>Player {{i+1}}</mat-label>
           <input matInput
-                 formControlName="name">
+                 [formControlName]="i">
         </mat-form-field>
       </div>
     </div>
 
-    <!-- Col 2, Boss 1 -->
-    <div class="d-flex"
-         [formGroup]="bossesFormGroup">
-      <div class="px-2">
-        <!-- Boss name first col -->
+    <!-- Col 2-4, Bosses + job assignments -->
+    <div class="d-flex">
+      <div class="px-2"
+           *ngFor="let bossControl of bossesFormArray.controls; let i = index">
+        <!-- Boss name for col -->
         <mat-form-field>
-          <mat-label>Boss 1</mat-label>
-          <mat-select formControlName="first">
+          <mat-label>Boss {{i+1}}</mat-label>
+          <mat-select [formControl]="asFormControl(bossControl)">
             <mat-option *ngFor="let bossKey of odyBossKeys"
                         [value]="bossKey">
               {{OdyBoss[bossKey]}}
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <!-- Subsequent cells pull player job assignments for boss -->
-        <div *ngFor="let playerGroup of playerFormArray.controls; let i = index">
-          <mat-form-field>
-            <mat-label>Job 1</mat-label>
-            <input matInput
-                   [formControl]="getAssignmentControl(playerGroup, 1)">
-          </mat-form-field>
+        <!-- Rest of the column is a drag lists for player job assignments -->
+        <div class="example-container-1"
+             *ngFor="let playerControl of playerFormArray.controls; let j = index">
+          <div cdkDropList
+               [cdkDropListData]="jobAssignments[i][j]"
+               class="example-list"
+               (cdkDropListDropped)="drop($event)"
+               [cdkDropListEnterPredicate]="getDropListPredicate(i, j)">
+            <div class="player-tile"
+                 [cdkDragData]="getAssignment(i, j)"
+                 cdkDrag
+                 [cdkDragDisabled]="jobAssignments[i][j].length === 0"
+                 [ngClass]="{'assigned-tile': jobAssignments[i][j].length > 0}">
+              {{getAssignment(i, j)}}
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Col 3, Boss 2 -->
-      <div class="px-2">
-        <!-- Boss name first col -->
-        <mat-form-field>
-          <mat-label>Boss 2</mat-label>
-          <mat-select formControlName="second">
-            <mat-option *ngFor="let bossKey of odyBossKeys"
-                        [value]="bossKey">
-              {{OdyBoss[bossKey]}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <!-- Subsequent cells pull player job assignments for boss -->
-        <div *ngFor="let playerGroup of playerFormArray.controls; let i = index">
-          <mat-form-field>
-            <mat-label>Job 2</mat-label>
-            <input matInput
-                   [formControl]="getAssignmentControl(playerGroup, 2)">
-          </mat-form-field>
-        </div>
-      </div>
-
-      <!-- Col 4, Boss 3 -->
-      <div class="px-2">
-        <!-- Boss name first col -->
-        <mat-form-field>
-          <mat-label>Boss 3</mat-label>
-          <mat-select formControlName="third">
-            <mat-option *ngFor="let bossKey of odyBossKeys"
-                        [value]="bossKey">
-              {{OdyBoss[bossKey]}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <!-- Subsequent cells pull player job assignments for boss -->
-        <div *ngFor="let playerGroup of playerFormArray.controls; let i = index">
-          <mat-form-field>
-            <mat-label>Job 3</mat-label>
-            <input matInput
-                   [formControl]="getAssignmentControl(playerGroup, 3)">
-          </mat-form-field>
-        </div>
-      </div>
     </div>
 
     <div class="flex-grow-1"></div>
   </div>
 
-  <div class="d-flex flex-wrap">
-    <div *ngFor="let jobKey of jobKeys"
-         class="job-tile">{{Job[jobKey]}}</div>
+
+  <div class="w-100 mt-1">
+    <h3 class="mb-0"><b>Available Jobs</b></h3>
+    <div class="d-flex flex-wrap available-tile-pool"
+         cdkDropList
+         [cdkDropListData]="jobsAvailable"
+         (cdkDropListDropped)="drop($event)">
+      <div class="job-tile"
+           *ngFor="let jobKey of jobsAvailable"
+           [cdkDragData]="jobKey"
+           cdkDrag>
+        {{Job[jobKey]}}
+      </div>
+    </div>
   </div>
 
 </mat-card>
