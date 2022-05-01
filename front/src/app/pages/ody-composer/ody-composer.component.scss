@@ -41,8 +41,8 @@
 
 .assigned-tile {
   cursor: move;
-  background: mat.get-color-from-palette(vars.$accent-palette, 500);
-  color: mat.get-color-from-palette(vars.$accent-palette, '500-contrast');
+  background: mat.get-color-from-palette(vars.$accent-palette, 300);
+  color: mat.get-color-from-palette(vars.$accent-palette, '300-contrast');
 }
 
 .job-tile {
@@ -51,8 +51,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: mat.get-color-from-palette(vars.$accent-palette, 500);
-  color: mat.get-color-from-palette(vars.$accent-palette, '500-contrast');
+  background: mat.get-color-from-palette(vars.$accent-palette, 300);
+  color: mat.get-color-from-palette(vars.$accent-palette, '300-contrast');
   border-radius: 5px;
   margin: 2px 2px;
   cursor: move;

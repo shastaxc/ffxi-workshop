@@ -182,6 +182,7 @@
         "@typescript-eslint/prefer-function-type": "warn",
         "@typescript-eslint/prefer-namespace-keyword": "warn",
         "@typescript-eslint/type-annotation-spacing": "warn",
+        "@typescript-eslint/prefer-for-of": "off",
         "semi": "off",
         "@typescript-eslint/semi": "warn"
       }

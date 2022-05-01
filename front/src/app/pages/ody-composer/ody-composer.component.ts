@@ -1,12 +1,14 @@
+import { Clipboard } from '@angular/cdk/clipboard';
 import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
-import { clone, isNil } from 'lodash-es';
+import { isNil } from 'lodash-es';
 
 import { Job } from '@/shared/constants/job.const';
 import { OdyBoss } from '@/shared/constants/ody-boss.const';
 import { IOdyFightPlan } from '@/shared/models/ody-fight-plan';
 import { IOdyPlayer } from '@/shared/models/ody-player';
+import { MyValidators } from '@/shared/utils/form-validators';
 
 @Component({
   selector: 'app-ody-composer',
@@ -55,6 +57,9 @@ export class OdyComposerComponent implements OnInit {
   ];
 
   fightPlan: IOdyFightPlan = {
+    createdBy: {
+      name: 'me',
+    },
     bosses: [
       {name: OdyBoss.BUMBA, order: 1},
       {name: OdyBoss.AREBATI, order: 2},
@@ -71,9 +76,16 @@ export class OdyComposerComponent implements OnInit {
   get playerFormArray(): FormArray {
     return this.form.controls['players'] as FormArray;
   }
+  get playerControls(): FormControl[] {
+    return this.playerFormArray.controls as FormControl[];
+  }
+  get playerNames(): string[] {
+    return this.playerControls.map(c => c.value).filter(v => !isNil(v));
+  }
 
   jobsAvailable: Job[] = Object.values(Job);
 
+  // First index = boss, second index = player, third index always an array of size 0-1 with Job
   jobAssignments: Job[][][] = [
   // 0   1   2   3   4   5          Bossess
     [[], [], [], [], [], []], // 0: First boss
@@ -81,24 +93,36 @@ export class OdyComposerComponent implements OnInit {
     [[], [], [], [], [], []], // 2: Third boss
   ];
 
-  constructor() { }
+  constructor(private readonly clipboard: Clipboard) { }
 
   ngOnInit(): void {
+    this.form.addControl('bosses', new FormArray([]));
+
     // Add 3 controls, one for each boss
-    this.form.addControl('bosses', new FormArray([
-      new FormControl(),
-      new FormControl(),
-      new FormControl(),
-    ]));
+    for (let i=0; i<3; i++) {
+      this.bossesFormArray.push(new FormControl());
+    }
+
+    this.form.addControl('players', new FormArray([], MyValidators.uniqueChildren()));
+
     // Add 6 controls, one for each party member
-    this.form.addControl('players', new FormArray([
-      new FormControl(),
-      new FormControl(),
-      new FormControl(),
-      new FormControl(),
-      new FormControl(),
-      new FormControl(),
-    ]));
+    for (let i=0; i<6; i++) {
+      this.playerFormArray.push(new FormControl());
+    }
+
+    // Listen to changes in array, and mark fields with errors if necessary
+    this.playerFormArray.valueChanges.subscribe(value => {
+      // Check for error
+      const errors = this.playerFormArray.errors;
+      if (errors) {
+        if (errors['notUnique']) {
+          const controls = this.playerControls;
+          errors['notUnique'].forEach((errorIndex: number) => {
+            controls[errorIndex].setErrors({ notUnique: true });
+          });
+        }
+      }
+    });
   }
 
   bossAt(num: number): OdyBoss | undefined {
@@ -133,7 +157,6 @@ export class OdyComposerComponent implements OnInit {
         event.currentIndex,
       );
     }
-    console.log('assignment: ', this.jobAssignments[0][0][0]);
   }
 
   getAssignment(bossNum: number, playerNum: number): Job {
@@ -145,6 +168,40 @@ export class OdyComposerComponent implements OnInit {
       // Check if slot is free or not
       return isNil(this.getAssignment(bossNum, playerNum));
     };
+  }
+
+  copyToClipboard(): void {
+    // Max 117 characters to fit into party chat with /p
+    // 84 chars always taken by jobs/formatting; 33 available for names (5 chars each)
+    let str = '';
+    this.playerNames.forEach((playerName: string, i: number) => {
+      // Copy requires player names
+      if (playerName) {
+        str += '\n'
+          + playerName.trim().slice(0,5) + ': '
+          + (this.getAssignment(0, i) || '???')
+          + ' '
+          + (this.getAssignment(1, i) || '???')
+          + ' '
+          + (this.getAssignment(2, i) || '???');
+      }
+    });
+    if (str.length > 0) {
+      console.log(str);
+      this.clipboard.copy(str);
+    }
+  }
+
+  getErrorMessage(errors: any): string {
+    let str = '';
+
+    if (errors.notUnique) {
+      str += 'Must be unique!';
+    } else {
+      str += 'Error';
+    }
+
+    return str;
   }
 
 }

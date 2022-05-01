@@ -4,6 +4,24 @@
 <mat-card class="table-container"
           [formGroup]="form"
           cdkDropListGroup>
+  <!-- Actions -->
+  <div class="d-flex justify-content-end mb-2">
+    <button mat-raised-button
+            color="accent"
+            (click)="copyToClipboard()"
+            matTooltip="Copy to clipboard"
+            matTooltipPosition="above">
+      <mat-icon>content_copy</mat-icon> Copy
+    </button>
+    &nbsp;
+    <button mat-raised-button
+            color="primary"
+            disabled
+            matTooltip="Save to database"
+            matTooltipPosition="above">
+      <mat-icon>save</mat-icon> Save
+    </button>
+  </div>
   <div class="d-flex">
     <!--
       4 col layout
@@ -21,11 +39,12 @@
       </div>
       <!-- Subsequent cells pull player names -->
       <div class="text-end"
-           *ngFor="let playerControl of playerFormArray.controls; let i = index">
+           *ngFor="let playerControl of playerControls; let i = index">
         <mat-form-field>
           <mat-label>Player {{i+1}}</mat-label>
           <input matInput
-                 [formControlName]="i">
+                 [formControlName]="i.toString()">
+          <mat-error *ngIf="playerControl.invalid">{{getErrorMessage(playerControl.errors)}}</mat-error>
         </mat-form-field>
       </div>
     </div>
@@ -46,7 +65,7 @@
         </mat-form-field>
         <!-- Rest of the column is a drag lists for player job assignments -->
         <div class="example-container-1"
-             *ngFor="let playerControl of playerFormArray.controls; let j = index">
+             *ngFor="let playerControl of playerControls; let j = index">
           <div cdkDropList
                [cdkDropListData]="jobAssignments[i][j]"
                class="example-list"
