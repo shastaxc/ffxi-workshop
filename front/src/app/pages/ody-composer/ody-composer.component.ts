@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 
 import { Job } from '@/shared/constants/job.const';
 import { OdyBoss } from '@/shared/constants/ody-boss.const';
@@ -10,7 +11,13 @@ import { IOdyPlayer } from '@/shared/models/ody-player';
   templateUrl: './ody-composer.component.html',
   styleUrls: ['./ody-composer.component.scss'],
 })
-export class OdyComposerComponent {
+export class OdyComposerComponent implements OnInit {
+
+  OdyBoss = OdyBoss;
+  odyBossKeys= Object.keys(OdyBoss) as [keyof typeof OdyBoss];
+
+  Job = Job;
+  jobKeys= Object.keys(Job) as [keyof typeof Job];
 
   playerData: IOdyPlayer[] = [
     {name: 'Kikomizuhara', assignments: [
@@ -54,7 +61,37 @@ export class OdyComposerComponent {
     players: this.playerData,
   };
 
+  form: FormGroup = new FormGroup({});
+
+  get bossesFormGroup(): FormGroup {
+    return this.form.controls['bosses'] as FormGroup;
+  }
+  get playerFormArray(): FormArray {
+    return this.form.controls['players'] as FormArray;
+  }
+
   constructor() { }
+
+  ngOnInit(): void {
+    this.form.addControl('bosses', new FormGroup({
+      first: new FormControl(),
+      second: new FormControl(),
+      third: new FormControl(),
+    }));
+    this.form.addControl('players', new FormArray([]));
+
+    // Add 6 groups, one for each party member
+    for (let i=0; i<6; i++) {
+      this.playerFormArray.controls.push(new FormGroup({
+        name: new FormControl(),
+        assignments: new FormGroup({
+          first: new FormControl(),
+          second: new FormControl(),
+          third: new FormControl(),
+        }),
+      }));
+    }
+  }
 
   bossAt(num: number): OdyBoss | undefined {
     return this.fightPlan.bosses.find(b => b.order === num)?.name;
@@ -66,6 +103,22 @@ export class OdyComposerComponent {
     }
 
     return undefined;
+  }
+
+  getAssignmentControl(playerGroup: AbstractControl | FormGroup, num: number): FormControl {
+    const assignments = (playerGroup as FormGroup).controls['assignments'] as FormGroup;
+
+    if (num === 1) {
+      return assignments.controls['first'] as FormControl;
+    } else if (num === 2) {
+      return assignments.controls['second'] as FormControl;
+    } else {
+      return assignments.controls['third'] as FormControl;
+    }
+  }
+
+  asFormGroup(input: AbstractControl | FormGroup): FormGroup {
+    return input as FormGroup;
   }
 
 }

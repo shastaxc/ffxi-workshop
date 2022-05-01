@@ -4,3 +4,14 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+.job-tile {
+  width: 100px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: blue;
+  border-radius: 5px;
+  margin: 2px 2px;
+}

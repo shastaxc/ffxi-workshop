@@ -1,3 +1,4 @@
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -21,6 +22,7 @@ import { MaterialComponentsModule } from './mat-components.module';
     ReactiveFormsModule,
     FlexLayoutModule,
     OrderModule,
+    DragDropModule,
   ],
   providers: [],
   bootstrap: [],
