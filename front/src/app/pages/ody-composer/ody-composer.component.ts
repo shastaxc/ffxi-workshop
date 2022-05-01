@@ -171,14 +171,13 @@ export class OdyComposerComponent implements OnInit {
   }
 
   copyToClipboard(): void {
-    // Max 117 characters to fit into party chat with /p
-    // 84 chars always taken by jobs/formatting; 33 available for names (5 chars each)
+    const names = this.formatNamesForCopy(this.playerNames);
     let str = '';
-    this.playerNames.forEach((playerName: string, i: number) => {
+    names.forEach((playerName: string, i: number) => {
       // Copy requires player names
       if (playerName) {
         str += '\n'
-          + playerName.trim().slice(0,5) + ': '
+          + playerName + ' '
           + (this.getAssignment(0, i) || '???')
           + ' '
           + (this.getAssignment(1, i) || '???')
@@ -202,6 +201,33 @@ export class OdyComposerComponent implements OnInit {
     }
 
     return str;
+  }
+
+  // Max 117 characters to fit into party chat with /p
+  // 78 chars always taken by jobs/formatting; 39 available for names
+  formatNamesForCopy(names: string[]): string[] {
+    // Remove whitespace
+    names.forEach(n => {
+      n = n.replace(' ', '');
+    });
+    const charCount = names.reduce((prev, curr) => prev + curr, '').length;
+
+    let charsToReclaim = charCount - 39;
+    // Truncate names down to 6 chars max as needed
+    for (let i=0; i<names.length; i++) {
+      const name = names[i];
+      if (charsToReclaim <= 0) {
+        break;
+      }
+      const initLength = name.length;
+      const newLength = Math.max(6, name.length - charsToReclaim);
+      names[i] = name.slice(0, newLength);
+      // Update chars remaining to reclaim
+      const charsReclaimed = initLength - newLength;
+      charsToReclaim = charsToReclaim - charsReclaimed;
+    }
+
+    return names;
   }
 
 }
