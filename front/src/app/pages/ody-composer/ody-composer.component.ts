@@ -146,7 +146,6 @@ export class OdyComposerComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<(Job)[]>): void {
-    console.log('event', event);
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
