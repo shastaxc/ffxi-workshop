@@ -8,6 +8,13 @@
   margin-right: auto;
 }
 
+.name-header {
+  height: 56px;
+  .large {
+    @include vars.typography-h2;
+  }
+}
+
 .player-tile-container {
   width: 180px;
   margin-bottom: 17px;
