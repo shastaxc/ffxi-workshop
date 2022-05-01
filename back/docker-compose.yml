@@ -4,7 +4,23 @@ services:
   mongodb:
     image: mongo:5.0.5
     container_name: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
     ports:
       - 27017:27017
+    tty: true
+    stdin_open: false
+    
+  ffxi-workshop-back:
+    container_name: ffxi-workshop-back
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    ports:
+      - 8080:8080
+    environment:
+      - MONGO_URI=mongodb://root:password@mongodb:27017/?authSource=admin
     tty: true
     stdin_open: false
