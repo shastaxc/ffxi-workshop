@@ -8,7 +8,7 @@
   margin-right: auto;
 }
 
-.example-container-1 {
+.player-tile-container {
   width: 180px;
   margin-bottom: 17px;
   display: inline-block;
@@ -16,8 +16,8 @@
   text-align: center;
 }
 
-.example-list {
-  box-sizing: content-box;
+.player-tile-list {
+  box-sizing: border-box;
   outline: dashed 2px #666;
   width: 180px;
   height: 40px;
@@ -26,6 +26,11 @@
   border-radius: 4px;
   overflow: hidden;
   display: block;
+}
+
+.assigned-tile-list {
+  box-sizing: border-box;
+  outline: none;
 }
 
 .player-tile {
@@ -41,8 +46,8 @@
 
 .assigned-tile {
   cursor: move;
-  background: mat.get-color-from-palette(vars.$accent-palette, 300);
-  color: mat.get-color-from-palette(vars.$accent-palette, '300-contrast');
+  background: mat.get-color-from-palette(vars.$accent-palette, 500);
+  color: mat.get-color-from-palette(vars.$accent-palette, '500-contrast');
 }
 
 .job-tile {
@@ -51,8 +56,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: mat.get-color-from-palette(vars.$accent-palette, 300);
-  color: mat.get-color-from-palette(vars.$accent-palette, '300-contrast');
+  background: mat.get-color-from-palette(vars.$accent-palette, 500);
+  color: mat.get-color-from-palette(vars.$accent-palette, '500-contrast');
   border-radius: 5px;
   margin: 2px 2px;
   cursor: move;

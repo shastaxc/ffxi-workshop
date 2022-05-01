@@ -64,13 +64,14 @@
           </mat-select>
         </mat-form-field>
         <!-- Rest of the column is a drag lists for player job assignments -->
-        <div class="example-container-1"
+        <div class="player-tile-container"
              *ngFor="let playerControl of playerControls; let j = index">
           <div cdkDropList
                [cdkDropListData]="jobAssignments[i][j]"
-               class="example-list"
+               class="player-tile-list"
                (cdkDropListDropped)="drop($event)"
-               [cdkDropListEnterPredicate]="getDropListPredicate(i, j)">
+               [cdkDropListEnterPredicate]="getDropListPredicate(i, j)"
+               [ngClass]="{'assigned-tile-list': jobAssignments[i][j].length > 0}">
             <div class="player-tile"
                  [cdkDragData]="getAssignment(i, j)"
                  cdkDrag

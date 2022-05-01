@@ -68,7 +68,7 @@ $success-colors: (
 
 // Select colors
 $primary-palette: mat.define-palette(mat.$pink-palette, 500);
-$accent-palette: mat.define-palette(mat.$purple-palette, 300);
+$accent-palette: mat.define-palette(mat.$indigo-palette, 500);
 $warn-palette: mat.define-palette($warn-colors);
 $success-palette: mat.define-palette($success-colors);
 

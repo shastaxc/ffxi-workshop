@@ -27,5 +27,7 @@ body {
 a {
   font-weight: bold;
   text-decoration: none;
-  color: map.get(variables.$primary-palette, lighter);
+  &:hover {
+    color: map.get(variables.$accent-palette, default) !important;
+  }
 }
