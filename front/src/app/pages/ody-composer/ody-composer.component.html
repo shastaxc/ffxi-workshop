@@ -57,9 +57,29 @@
           <mat-form-field>
             <mat-label>Boss {{i+1}}</mat-label>
             <mat-select [formControl]="asFormControl(bossControl)">
-              <mat-option *ngFor="let bossKey of odyBossKeys"
-                          [value]="bossKey">
-                {{OdyBoss[bossKey]}}
+              <mat-hint>Tier 4</mat-hint>
+              <mat-divider></mat-divider>
+              <mat-option *ngFor="let odyBossInfo of odyBossInfo | tierFilter: 4"
+                          [value]="odyBossInfo.boss">
+                {{odyBossInfo.prettyName}}
+              </mat-option>
+              <mat-hint>Tier 3</mat-hint>
+              <mat-divider></mat-divider>
+              <mat-option *ngFor="let odyBossInfo of odyBossInfo | tierFilter: 3"
+                          [value]="odyBossInfo.boss">
+                {{odyBossInfo.prettyName}}
+              </mat-option>
+              <mat-hint>Tier 2</mat-hint>
+              <mat-divider></mat-divider>
+              <mat-option *ngFor="let odyBossInfo of odyBossInfo | tierFilter: 2"
+                          [value]="odyBossInfo.boss">
+                {{odyBossInfo.prettyName}}
+              </mat-option>
+              <mat-hint>Tier 1</mat-hint>
+              <mat-divider></mat-divider>
+              <mat-option *ngFor="let odyBossInfo of odyBossInfo | tierFilter: 1"
+                          [value]="odyBossInfo.boss">
+                {{odyBossInfo.prettyName}}
               </mat-option>
             </mat-select>
           </mat-form-field>

@@ -1,11 +1,11 @@
 import { Clipboard } from '@angular/cdk/clipboard';
-import { CdkDrag, CdkDragDrop, CdkDropList, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 import { cloneDeep, isNil } from 'lodash-es';
 
 import { Job } from '@/shared/constants/job.const';
-import { OdyBoss } from '@/shared/constants/ody-boss.const';
+import { ODY_BOSS_INFO,OdyBoss } from '@/shared/constants/ody-boss.const';
 import { IOdyFightPlan } from '@/shared/models/ody-fight-plan';
 import { IOdyPlayer } from '@/shared/models/ody-player';
 import { MyValidators } from '@/shared/utils/form-validators';
@@ -18,7 +18,8 @@ import { MyValidators } from '@/shared/utils/form-validators';
 export class OdyComposerComponent implements OnInit {
 
   OdyBoss = OdyBoss;
-  odyBossKeys= Object.keys(OdyBoss) as [keyof typeof OdyBoss];
+  // odyBossKeys= Object.keys(OdyBoss) as [keyof typeof OdyBoss];
+  odyBossInfo = ODY_BOSS_INFO;
 
   Job = Job;
   jobKeys = Object.keys(Job) as [keyof typeof Job];

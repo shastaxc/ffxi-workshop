@@ -22,3 +22,28 @@ export enum Job {
   GEO = 'GEO',
   RUN = 'RUN',
 }
+
+export const JOB_INFO: {job: Job, prettyName: string}[] = [
+  {job: Job.WAR, prettyName: 'Warrior'},
+  {job: Job.MNK, prettyName: 'Monk'},
+  {job: Job.WHM, prettyName: 'White Mage'},
+  {job: Job.BLM, prettyName: 'Black Mage'},
+  {job: Job.RDM, prettyName: 'Red Mage'},
+  {job: Job.THF, prettyName: 'Thief'},
+  {job: Job.PLD, prettyName: 'Paladin'},
+  {job: Job.DRK, prettyName: 'Dark Knight'},
+  {job: Job.BST, prettyName: 'Beastmaster'},
+  {job: Job.BRD, prettyName: 'Bard'},
+  {job: Job.RNG, prettyName: 'Ranger'},
+  {job: Job.SAM, prettyName: 'Samurai'},
+  {job: Job.NIN, prettyName: 'Ninja'},
+  {job: Job.DRG, prettyName: 'Dragoon'},
+  {job: Job.SMN, prettyName: 'Summoner'},
+  {job: Job.BLU, prettyName: 'Blue Mage'},
+  {job: Job.COR, prettyName: 'Corsair'},
+  {job: Job.PUP, prettyName: 'Puppetmaster'},
+  {job: Job.DNC, prettyName: 'Dancer'},
+  {job: Job.SCH, prettyName: 'Scholar'},
+  {job: Job.GEO, prettyName: 'Geomancer'},
+  {job: Job.RUN, prettyName: 'Rune Fencer'},
+];

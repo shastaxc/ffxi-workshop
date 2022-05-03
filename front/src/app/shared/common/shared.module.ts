@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { OrderModule } from 'ngx-order-pipe';
 
+import { PipesModule } from '../pipes/pipes.module';
 import { MaterialComponentsModule } from './mat-components.module';
 
 @NgModule({
@@ -21,6 +22,7 @@ import { MaterialComponentsModule } from './mat-components.module';
     ReactiveFormsModule,
     FlexLayoutModule,
     OrderModule,
+    PipesModule,
   ],
   providers: [],
   bootstrap: [],
