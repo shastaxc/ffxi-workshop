@@ -8,7 +8,7 @@
   <div class="d-flex justify-content-end mb-2">
     <button mat-raised-button
             color="accent"
-            (click)="copyToClipboard()"
+            (click)="copyPlanToClipboard()"
             matTooltip="Copy to clipboard"
             matTooltipPosition="above">
       <mat-icon>content_copy</mat-icon> Copy
@@ -50,38 +50,47 @@
 
     <!-- Col 2-4, Bosses + job assignments -->
     <div class="d-flex">
-      <div class="px-2"
+      <div class="d-flex"
            *ngFor="let bossControl of bossesFormArray.controls; let i = index">
-        <!-- Boss name for col -->
-        <mat-form-field>
-          <mat-label>Boss {{i+1}}</mat-label>
-          <mat-select [formControl]="asFormControl(bossControl)">
-            <mat-option *ngFor="let bossKey of odyBossKeys"
-                        [value]="bossKey">
-              {{OdyBoss[bossKey]}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <!-- Rest of the column is a drag lists for player job assignments -->
-        <div class="player-tile-container"
-             *ngFor="let playerControl of playerControls; let j = index">
-          <div cdkDropList
-               [cdkDropListData]="jobAssignments[i][j]"
-               class="player-tile-list"
-               (cdkDropListDropped)="drop($event)"
-               [cdkDropListEnterPredicate]="getDropListPredicate(i, j)"
-               [ngClass]="{'assigned-tile-list': jobAssignments[i][j].length > 0}">
-            <div class="player-tile"
-                 [cdkDragData]="getAssignment(i, j)"
-                 cdkDrag
-                 [cdkDragDisabled]="jobAssignments[i][j].length === 0"
-                 [ngClass]="{'assigned-tile': jobAssignments[i][j].length > 0}">
-              {{getAssignment(i, j)}}
+        <div class="px-2">
+          <!-- Boss name for col -->
+          <mat-form-field>
+            <mat-label>Boss {{i+1}}</mat-label>
+            <mat-select [formControl]="asFormControl(bossControl)">
+              <mat-option *ngFor="let bossKey of odyBossKeys"
+                          [value]="bossKey">
+                {{OdyBoss[bossKey]}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <!-- Rest of the column is a drag lists for player job assignments -->
+          <div class="player-tile-container"
+               *ngFor="let playerControl of playerControls; let j = index">
+            <div cdkDropList
+                 [cdkDropListData]="jobAssignments[i][j]"
+                 class="player-tile-list"
+                 (cdkDropListDropped)="drop($event)"
+                 [cdkDropListEnterPredicate]="getDropListPredicate(i, j)"
+                 [ngClass]="{'assigned-tile-list': jobAssignments[i][j].length > 0}">
+              <div class="player-tile"
+                   [cdkDragData]="getAssignment(i, j)"
+                   cdkDrag
+                   [cdkDragDisabled]="jobAssignments[i][j].length === 0"
+                   [ngClass]="{'assigned-tile': jobAssignments[i][j].length > 0}">
+                {{getAssignment(i, j)}}
+              </div>
             </div>
           </div>
         </div>
+        <!-- Swap button -->
+        <div *ngIf="i < bossesFormArray.controls.length - 1"
+             class="d-flex align-items-center">
+          <button mat-icon-button
+                  (click)="swapCol(i)">
+            <mat-icon>swap_horiz</mat-icon>
+          </button>
+        </div>
       </div>
-
     </div>
 
     <div class="flex-grow-1"></div>
@@ -89,7 +98,13 @@
 
 
   <div class="w-100 mt-1">
-    <h3 class="mb-0"><b>Available Jobs</b></h3>
+    <div class="d-flex align-items-center">
+      <h3 class="mb-0"><b>Available Jobs</b></h3>
+      <button mat-icon-button
+              (click)="copyAvailableJobsToClipboard()">
+        <mat-icon>content_copy</mat-icon>
+      </button>
+    </div>
     <div class="d-flex flex-wrap available-tile-pool"
          cdkDropList
          [cdkDropListData]="jobsAvailable"

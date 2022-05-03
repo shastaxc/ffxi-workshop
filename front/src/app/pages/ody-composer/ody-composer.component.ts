@@ -2,7 +2,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
-import { isNil } from 'lodash-es';
+import { cloneDeep, isNil } from 'lodash-es';
 
 import { Job } from '@/shared/constants/job.const';
 import { OdyBoss } from '@/shared/constants/ody-boss.const';
@@ -169,7 +169,7 @@ export class OdyComposerComponent implements OnInit {
     };
   }
 
-  copyToClipboard(): void {
+  copyPlanToClipboard(): void {
     const names = this.formatNamesForCopy(this.playerNames);
     let str = '';
     names.forEach((playerName: string, i: number) => {
@@ -188,6 +188,15 @@ export class OdyComposerComponent implements OnInit {
       console.log(str);
       this.clipboard.copy(str);
     }
+  }
+
+  copyAvailableJobsToClipboard(): void {
+    let str = 'Available:';
+    this.jobsAvailable.forEach((j: Job) => {
+      str += ' ' + j.toString();
+    });
+    console.log(str);
+    this.clipboard.copy(str);
   }
 
   getErrorMessage(errors: any): string {
@@ -227,6 +236,22 @@ export class OdyComposerComponent implements OnInit {
     }
 
     return names;
+  }
+
+  // Swaps player job assignments and boss selection for column provided and the one to the right of it.
+  swapCol(i: number): void {
+    // Swap boss selections
+    const leftBossControl: FormControl = this.bossesFormArray.controls[i] as FormControl;
+    const rightBossControl: FormControl = this.bossesFormArray.controls[i+1] as FormControl;
+
+    const tmpBoss = leftBossControl.value;
+    leftBossControl.setValue(rightBossControl.value);
+    rightBossControl.setValue(tmpBoss);
+
+    // Swap player assignments
+    const tmpAssign = cloneDeep(this.jobAssignments[i]);
+    this.jobAssignments[i] = cloneDeep(this.jobAssignments[i+1]);
+    this.jobAssignments[i+1] = tmpAssign;
   }
 
 }
