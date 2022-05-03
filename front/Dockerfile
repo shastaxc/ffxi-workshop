@@ -44,5 +44,8 @@ FROM nginx:1.21.6-alpine as production
 # copy artifact build from the 'build environment'
 COPY --from=build-prod /app/dist/ffxi-workshop /usr/share/nginx/html
 
+# Need this to allow Angular to handle all routing
+RUN sed -i '10s/^.*$/try_files $uri $uri\/ \/index.html;/' /etc/nginx/conf.d/default.conf
+
 # Run nginx server
 CMD ["/bin/sh", "-c", "nginx -g \"daemon off;\""]
