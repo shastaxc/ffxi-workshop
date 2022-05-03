@@ -76,7 +76,8 @@
                    [cdkDragData]="getAssignment(i, j)"
                    cdkDrag
                    [cdkDragDisabled]="jobAssignments[i][j].length === 0"
-                   [ngClass]="{'assigned-tile': jobAssignments[i][j].length > 0}">
+                   [ngClass]="{'assigned-tile': jobAssignments[i][j].length > 0}"
+                   (contextmenu)="unassignJob(i, j)">
                 {{getAssignment(i, j)}}
               </div>
             </div>

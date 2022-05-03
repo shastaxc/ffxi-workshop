@@ -254,4 +254,21 @@ export class OdyComposerComponent implements OnInit {
     this.jobAssignments[i+1] = tmpAssign;
   }
 
+  // Unassign job and move it back into the list of available jobs.
+  // Returning false prevents context menu from popping up.
+  unassignJob(i: number, j: number): boolean {
+    const job = this.jobAssignments[i][j][0];
+    // Do nothing if no job assigned.
+    if (!job) {
+      return false;
+    }
+    // Add job back to available list
+    this.jobsAvailable.push(job);
+
+    // Unset job assignment
+    this.jobAssignments[i][j] = [];
+
+    return false;
+  }
+
 }
