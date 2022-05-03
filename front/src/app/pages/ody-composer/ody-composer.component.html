@@ -70,7 +70,6 @@
                  [cdkDropListData]="jobAssignments[i][j]"
                  class="player-tile-list"
                  (cdkDropListDropped)="drop($event)"
-                 [cdkDropListEnterPredicate]="getDropListPredicate(i, j)"
                  [ngClass]="{'assigned-tile-list': jobAssignments[i][j].length > 0}">
               <div class="player-tile"
                    [cdkDragData]="getAssignment(i, j)"
@@ -107,8 +106,10 @@
       </button>
     </div>
     <div class="d-flex flex-wrap available-tile-pool"
+         id="available-job-pool"
          cdkDropList
          [cdkDropListData]="jobsAvailable"
+         cdkDropListSortingDisabled
          (cdkDropListDropped)="drop($event)">
       <div class="job-tile"
            *ngFor="let jobKey of jobsAvailable"

@@ -1,5 +1,5 @@
 import { Clipboard } from '@angular/cdk/clipboard';
-import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragDrop, CdkDropList, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 import { cloneDeep, isNil } from 'lodash-es';
@@ -83,7 +83,7 @@ export class OdyComposerComponent implements OnInit {
     return this.playerControls.map(c => c.value).filter(v => !isNil(v));
   }
 
-  jobsAvailable: Job[] = Object.values(Job);
+  jobsAvailable: Job[] = Object.values(Job).sort((a, b) => a.localeCompare(b));
 
   // First index = boss, second index = player, third index always an array of size 0-1 with Job
   jobAssignments: Job[][][] = [
@@ -146,27 +146,53 @@ export class OdyComposerComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<(Job)[]>): void {
+    const isSourceAvailableJobPool = event.previousContainer.id  === "available-job-pool";
+    const isTargetAvailableJobPool = event.container.id  === "available-job-pool";
+
+    // Do not allow moving in same container
     if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      return;
+    }
+
+    // If neither the source nor target container is the "available job pool", swap contents.
+    if (!isSourceAvailableJobPool && !isTargetAvailableJobPool) {
+      const temp: Job[] = [];
+
+      transferArrayItem(
+        event.previousContainer.data,
+        temp,
+        event.previousIndex,
+        event.currentIndex,
+      );
+
+      transferArrayItem(
+        event.container.data,
+        event.previousContainer.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+
+      transferArrayItem(
+        temp,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
     } else {
+      // If source or target is "available job pool" do a simple unidirectional content transfer.
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
         event.currentIndex,
       );
+      // Sort available job pool
+      this.jobsAvailable.sort((a, b) => a.localeCompare(b));
     }
   }
 
   getAssignment(bossNum: number, playerNum: number): Job {
     return this.jobAssignments[bossNum][playerNum][0];
-  }
-
-  getDropListPredicate(bossNum: number, playerNum: number): (drag: CdkDrag, drop: CdkDropList) => boolean {
-    return (drag: CdkDrag, drop: CdkDropList) => {
-      // Check if slot is free or not
-      return isNil(this.getAssignment(bossNum, playerNum));
-    };
   }
 
   copyPlanToClipboard(): void {
@@ -264,6 +290,8 @@ export class OdyComposerComponent implements OnInit {
     }
     // Add job back to available list
     this.jobsAvailable.push(job);
+    // Sort available job pool
+    this.jobsAvailable.sort((a, b) => a.localeCompare(b));
 
     // Unset job assignment
     this.jobAssignments[i][j] = [];
