@@ -21,6 +21,6 @@ services:
     ports:
       - 8080:8080
     environment:
-      - MONGO_URI=mongodb://root:password@mongodb:27017/?authSource=admin
+      - MONGO_URI=mongodb://root:password@mongodb:27017/ffxiWorkshopDB?authSource=admin
     tty: true
     stdin_open: false
